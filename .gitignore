@@ -1,0 +1,84 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+.env
+.venv
+env/
+venv/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+*.pth
+*.log
+logs/
+tmp/
+temp/
+
+# Coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Vercel
+.vercel
+.now
+.env*.local
+.output
+
+# Machine Learning Models and Data
+*.h5
+*.hdf5
+*.pkl
+*.model
+*.bin
+dataset/
+raw_data/
+processed_data/
+models/
+wandb/
+mlruns/
+tensorboard/
+runs/
+
+# Node (in case you have any frontend components)
+node_modules/
+.next/
+out/
+.npm
+.yarn/ 
