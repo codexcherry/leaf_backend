@@ -81,4 +81,10 @@ node_modules/
 .next/
 out/
 .npm
-.yarn/ 
+.yarn/
+
+# Specific model files
+tomato_model.pth
+tomato_model.h5
+*.pth
+*.h5 

@@ -8,6 +8,8 @@ import numpy as np
 from PIL import Image
 import io
 import os
+import requests
+from pathlib import Path
 
 app = FastAPI()
 
@@ -45,10 +47,30 @@ transform = transforms.Compose([
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 ])
 
+# Function to download model
+def download_model(url, model_path):
+    if not os.path.exists(model_path):
+        print(f"Downloading model from {url}")
+        os.makedirs(os.path.dirname(model_path), exist_ok=True)
+        response = requests.get(url)
+        with open(model_path, 'wb') as f:
+            f.write(response.content)
+        print("Model downloaded successfully")
+
 # Initialize and load the model
 model = TomatoLeafNet(num_classes=4)
-model.load_state_dict(torch.load("model/tomato_model_state.pth", map_location=torch.device('cpu')))
-model.eval()
+MODEL_URL = os.getenv('MODEL_URL')  # You'll set this in Vercel environment variables
+MODEL_PATH = "model/tomato_model_state.pth"
+
+@app.on_event("startup")
+async def startup_event():
+    global model
+    if MODEL_URL:
+        download_model(MODEL_URL, MODEL_PATH)
+        model.load_state_dict(torch.load(MODEL_PATH, map_location=torch.device('cpu')))
+        model.eval()
+    else:
+        raise ValueError("MODEL_URL environment variable is not set")
 
 def read_image(image_data):
     img = Image.open(io.BytesIO(image_data))
