@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: tomato-leaf-disease-api
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.0
+      - key: MODEL_URL
+        sync: false # This will be set manually in Render dashboard
+    autoDeploy: true 
